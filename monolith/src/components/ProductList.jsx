@@ -1,39 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  getCart,
+  getQuantity,
+  addToCart,
+  removeFromCart,
+} from "../utils/cart";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [cart, setCartState] = useState({});
   const navigate = useNavigate();
+
+  const updateCartState = () => {
+    const updated = getCart();
+    setCartState(updated);
+    setCartCount(
+      Object.values(updated)
+        .filter(Boolean)
+        .reduce((sum, p) => sum + (p?.quantity || 0), 0)
+    );
+  };
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartCount(cart.length);
+    updateCartState();
   }, []);
 
-  const handleAddToCart = (product) => {
-    const existing = JSON.parse(localStorage.getItem("cart")) || [];
-    const updated = [...existing, { ...product, quantity: 1 }];
-    localStorage.setItem("cart", JSON.stringify(updated));
-    setCartCount(updated.length);
+  const handleAdd = (product) => {
+    addToCart(product);
+    updateCartState();
   };
 
-  const handleNavigate = (id) => {
-    navigate(`/product/${id}`);
+  const handleRemove = (id) => {
+    removeFromCart(id);
+    updateCartState();
   };
 
+  const handleNavigate = (id) => navigate(`/product/${id}`);
   const goToCart = () => navigate("/cart");
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed z-50 top-4 right-4">
         <button
           onClick={goToCart}
-          className="relative bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 transition"
+          className="relative p-3 text-white transition bg-blue-600 rounded-full shadow hover:bg-blue-700"
         >
           🛒
           {cartCount > 0 && (
@@ -44,35 +60,56 @@ const ProductList = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="flex flex-col justify-between items-center bg-white rounded-2xl shadow p-4 hover:shadow-lg transition duration-200 relative"
-          >
+      <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3">
+        {products.map((product) => {
+          const quantity = getQuantity(product.id);
+          return (
             <div
-              onClick={() => handleNavigate(product.id)}
-              className="cursor-pointer"
+              key={product.id}
+              className="relative flex flex-col items-center justify-between p-4 transition duration-200 bg-white shadow rounded-2xl hover:shadow-lg"
             >
-              <img
-                src={product.image}
-                alt={product.title}
-                className="h-40 w-full object-contain mb-4"
-              />
-              <h2 className="text-lg font-semibold line-clamp-2">{product.title}</h2>
-              <p className="text-sm text-gray-500">${product.price}</p>
-            </div>
-
-            <div className="flex items-end">
-              <button
-                onClick={() => handleAddToCart(product)}
-                className="mt-4 px-4 bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-700 transition-all  "
+              <div
+                onClick={() => handleNavigate(product.id)}
+                className="w-full cursor-pointer"
               >
-                Add to cart
-              </button>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="object-contain w-full h-40 mb-4"
+                />
+                <h2 className="text-lg font-semibold line-clamp-2">{product.title}</h2>
+                <p className="text-sm text-gray-500">${product.price}</p>
+              </div>
+
+              <div className="flex items-center mt-4 space-x-2">
+                {quantity > 0 ? (
+                  <>
+                    <button
+                      onClick={() => handleRemove(product.id)}
+                      className="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                    >
+                      −
+                    </button>
+                    <span className="font-semibold">{quantity}</span>
+                    <button
+                      onClick={() => handleAdd(product)}
+                      className="px-3 py-1 text-white bg-green-500 rounded hover:bg-green-600"
+                    >
+                      +
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleAdd(product)}
+                    className="px-4 py-2 text-white bg-blue-500 rounded-xl hover:bg-blue-700"
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </>
   );
