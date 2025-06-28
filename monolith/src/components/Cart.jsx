@@ -1,4 +1,3 @@
-// src/components/Cart.jsx
 import React, { useEffect, useState } from "react";
 
 const Cart = () => {
@@ -18,14 +17,14 @@ const Cart = () => {
   const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0).toFixed(2);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">🛒 Checkout</h2>
+    <div className="max-w-4xl p-6 mx-auto">
+      <h2 className="mb-4 text-2xl font-bold">🛒 Checkout</h2>
       {cart.length === 0 ? (
         <p>No items in cart.</p>
       ) : (
         <div className="space-y-4">
           {cart.map((item) => (
-            <div key={item.id} className="flex items-center justify-between border-b pb-2">
+            <div key={item.id} className="flex items-center justify-between pb-2 border-b">
               <span>{item.title}</span>
               <div className="flex items-center space-x-4">
                 <span>${item.price}</span>
@@ -38,7 +37,7 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="text-right font-semibold mt-4">Total: ${total}</div>
+          <div className="mt-4 font-semibold text-right">Total: ${total}</div>
         </div>
       )}
     </div>

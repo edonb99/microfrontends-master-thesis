@@ -24,20 +24,20 @@ const ProductDetail = () => {
     navigate("/cart");
   };
 
-  if (loading || !product) return <p className="text-center mt-10">Loading...</p>;
+  if (loading || !product) return <p className="mt-10 text-center">Loading...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <img src={product.image} alt={product.title} className="object-contain h-80 mx-auto" />
+    <div className="grid max-w-4xl grid-cols-1 gap-6 p-6 mx-auto md:grid-cols-2">
+      <img src={product.image} alt={product.title} className="object-contain mx-auto h-80" />
       <div>
-        <h2 className="text-2xl font-bold mb-2">{product.title}</h2>
-        <p className="text-gray-600 mb-4">{product.description}</p>
-        <p className="text-xl font-semibold mb-4">${product.price}</p>
+        <h2 className="mb-2 text-2xl font-bold">{product.title}</h2>
+        <p className="mb-4 text-gray-600">{product.description}</p>
+        <p className="mb-4 text-xl font-semibold">${product.price}</p>
         <button
           onClick={handleAddToCart}
-          className="mt-4 px-4 bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-700 transition-all  "
+          className="px-4 py-2 mt-4 text-white transition-all bg-blue-500 rounded-xl hover:bg-blue-700 "
           >
-          Add to Cart
+          Add to cart
         </button>
       </div>
     </div>
