@@ -3,9 +3,9 @@ import ProductList from "./ProductList";
 
 const App = () => (
   <BrowserRouter>
-  <div className="p-4 text-xl font-bold text-white bg-blue-500">
-  Tailwind works! 🚀
-</div>
+    <div className="p-4 mb-4 text-center text-white bg-blue-600">
+      🧩 ProductList Microfrontend - Standalone Mode
+    </div>
     <ProductList />
   </BrowserRouter>
 );

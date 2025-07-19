@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProductDetail from "./ProductDetail";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => (
+  <BrowserRouter>
+    <div className="p-4 mb-4 text-center text-white bg-purple-600">
+      🧩 ProductDetail Microfrontend - Standalone Mode
     </div>
-  );
-}
+    <Routes>
+      <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/" element={<ProductDetail />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
