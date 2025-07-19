@@ -21,8 +21,34 @@ const ProductList = () => {
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setProducts(data))
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        // Set mock products for development
+        const mockProducts = [
+          {
+            id: 1,
+            title: "Mock Product 1",
+            description: "This is a mock product for development",
+            price: 29.99,
+            image: "https://via.placeholder.com/300x300/ff6b6b/ffffff?text=Product+1"
+          },
+          {
+            id: 2,
+            title: "Mock Product 2", 
+            description: "This is another mock product for development",
+            price: 39.99,
+            image: "https://via.placeholder.com/300x300/4ecdc4/ffffff?text=Product+2"
+          }
+        ];
+        setProducts(mockProducts);
+      });
 
     updateCartState();
   }, []);
@@ -42,10 +68,6 @@ const ProductList = () => {
 
   return (
     <>
-    <div className="p-2 font-bold text-black bg-yellow-300">
-  Tailwind is working inside ProductList 🎯
-</div>
-
       <div className="fixed z-50 top-4 right-4">
         <button
           onClick={goToCart}

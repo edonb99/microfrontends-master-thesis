@@ -3,6 +3,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
   webpack: {
     configure: (config) => {
+      config.output.publicPath = "http://localhost:3001/";
       config.plugins.push(
         new ModuleFederationPlugin({
           name: "product_list",
@@ -11,20 +12,21 @@ module.exports = {
             "./ProductList": "./src/ProductList",
           },
           shared: {
-            react: { singleton: true, eager: true, requiredVersion: "^18.0.0" },
-            "react-dom": { singleton: true, eager: true, requiredVersion: "^18.0.0" },
+            react: { singleton: true },
+            "react-dom": { singleton: true },
+            "react-router-dom": { singleton: true },
           },
         })
       );
       return config;
     },
   },
+  devServer: {
+    port: 3001,
+  },
   style: {
     postcssOptions: {
-      plugins: [
-        require("tailwindcss"),
-        require("autoprefixer"),
-      ],
+      plugins: [require("tailwindcss"), require("autoprefixer")],
     },
   },
 };
