@@ -10,7 +10,7 @@ module.exports = {
           remotes: {
             product_list: "product_list@http://localhost:4001/remoteEntry.js",
             product_detail: "product_detail@http://localhost:4002/remoteEntry.js",
-            cart: "cart@http://localhost:4003/assets/remoteEntry.js",
+            cart: "cart@http://localhost:4003/remoteEntry.js",
           },
           shared: {
             react: { 
@@ -36,6 +36,9 @@ module.exports = {
   },
   devServer: {
     port: 4000,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
   style: {
     postcssOptions: {

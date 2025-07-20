@@ -2,19 +2,25 @@
   "name": "mf-cart-svelte",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "preview": "webpack serve --mode production"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-federation": "^1.4.1",
-    "@sveltejs/vite-plugin-svelte": "^6.0.0",
     "autoprefixer": "^10.4.21",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.4",
+    "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.5.6",
-    "svelte": "^5.35.5",
-    "tailwindcss": "^4.1.11",
-    "vite": "^7.0.4"
+    "postcss-loader": "^7.3.3",
+    "style-loader": "^3.3.3",
+    "svelte": "^3.59.1",
+    "svelte-loader": "^3.1.9",
+    "svelte-preprocess": "^4.10.7",
+    "tailwindcss": "^3.4.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }

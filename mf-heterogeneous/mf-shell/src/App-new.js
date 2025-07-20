@@ -45,47 +45,8 @@ const Navigation = () => {
   );
 };
 
-// Svelte Cart Component wrapper - this is where React meets Svelte
-const SvelteCartWrapper = () => {
-  const containerRef = React.useRef(null);
-  const svelteInstance = React.useRef(null);
-
-  React.useEffect(() => {
-    const loadSvelteCart = async () => {
-      try {
-        console.log('🔄 Loading Svelte cart...');
-        const { default: SvelteCart } = await import("cart/Cart");
-        console.log('✅ Svelte cart loaded:', SvelteCart);
-        
-        if (containerRef.current && !svelteInstance.current) {
-          console.log('🎯 Mounting Svelte cart to container');
-          svelteInstance.current = new SvelteCart({
-            target: containerRef.current,
-          });
-          console.log('✅ Svelte cart mounted successfully');
-        }
-      } catch (error) {
-        console.error('❌ Failed to load Svelte cart:', error);
-      }
-    };
-
-    loadSvelteCart();
-
-    // Cleanup function
-    return () => {
-      if (svelteInstance.current) {
-        console.log('🧹 Destroying Svelte cart instance');
-        svelteInstance.current.$destroy();
-        svelteInstance.current = null;
-      }
-    };
-  }, []);
-
-  return React.createElement('div', { 
-    ref: containerRef,
-    className: 'svelte-cart-container'
-  });
-};
+// Simple Svelte Cart Component wrapper - using the same pattern as homogeneous
+const SvelteCart = React.lazy(() => import("cart/Cart"));
 
 function App() {
   return (
@@ -107,7 +68,7 @@ function App() {
             <Routes>
               <Route path="/" element={<ProductList />} />
               <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/cart" element={<SvelteCartWrapper />} />
+              <Route path="/cart" element={<SvelteCart />} />
             </Routes>
           </Suspense>
         </main>

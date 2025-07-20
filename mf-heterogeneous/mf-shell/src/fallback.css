@@ -1,0 +1,128 @@
+/* Fallback styles if TailwindCSS doesn't work */
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.bg-blue-600 {
+  background-color: #2563eb;
+}
+.text-white {
+  color: white;
+}
+.p-4 {
+  padding: 1rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.text-xl {
+  font-size: 1.25rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.transition-colors {
+  transition-property: color, background-color;
+}
+.bg-blue-800 {
+  background-color: #1e40af;
+}
+.hover\:bg-blue-700:hover {
+  background-color: #1d4ed8;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Success message styling */
+.bg-green-100 {
+  background-color: #dcfce7;
+}
+.border {
+  border-width: 1px;
+}
+.border-green-400 {
+  border-color: #4ade80;
+}
+.text-green-700 {
+  color: #15803d;
+}
+.rounded {
+  border-radius: 0.25rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+
+/* Loading spinner */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}
+.h-8 {
+  height: 2rem;
+}
+.w-8 {
+  width: 2rem;
+}
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+.border-blue-500 {
+  border-color: #3b82f6;
+}

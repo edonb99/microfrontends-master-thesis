@@ -14,7 +14,7 @@
     cart = getCart();
     products = Object.values(cart).filter(Boolean);
     total = products.reduce(
-      (sum, p) => sum + (p?.price || 0) * (p?.quantity || 0),
+      (sum, p) => sum + (p.price || 0) * (p.quantity || 0),
       0
     );
   }
