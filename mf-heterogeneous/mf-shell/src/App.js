@@ -92,11 +92,6 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <BrowserRouter>
         <Navigation />
-        {/* Test TailwindCSS */}
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mx-4 mt-2 text-sm">
-          <strong>TailwindCSS Test:</strong> If you see green styling here, TailwindCSS is working! 
-          If not, TailwindCSS is not processing correctly.
-        </div>
         <main className="container mx-auto px-4 py-6">
           <Suspense fallback={
             <div className="flex items-center justify-center p-8">
