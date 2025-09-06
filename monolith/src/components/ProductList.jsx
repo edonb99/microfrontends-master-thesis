@@ -8,7 +8,7 @@ import {
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [refreshCart, setRefreshCart] = useState(0); // Force re-render when cart changes
+  const [refreshCart, setRefreshCart] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,12 +19,12 @@ const ProductList = () => {
 
   const handleAdd = (product) => {
     addToCart(product);
-    setRefreshCart(prev => prev + 1); // Trigger re-render
+    setRefreshCart(prev => prev + 1); 
   };
 
   const handleRemove = (id) => {
     removeFromCart(id);
-    setRefreshCart(prev => prev + 1); // Trigger re-render
+    setRefreshCart(prev => prev + 1); 
   };
 
   const handleNavigate = (id) => navigate(`/product/${id}`);
@@ -32,7 +32,7 @@ const ProductList = () => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => {
-        const quantity = getQuantity(product.id) + refreshCart * 0; // Use refreshCart to trigger re-render
+        const quantity = getQuantity(product.id) + refreshCart * 0;
         return (
           <div
             key={product.id}

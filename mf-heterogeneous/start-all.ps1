@@ -1,23 +1,23 @@
 # Starting Heterogeneous Microfrontends...
 Write-Host "Starting Heterogeneous Microfrontends..." -ForegroundColor Green
 
-Write-Host "`nStarting Shell (Host) - Port 4000..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-shell; npm run build; npm run preview"
-
-Start-Sleep -Seconds 3
-
-Write-Host "Starting Product List (React Remote) - Port 4001..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-product-list; npm run build; npm run preview"
+Write-Host "`nStarting Product List (React Remote) - Port 4001..." -ForegroundColor Yellow
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-product-list; npm start"
 
 Start-Sleep -Seconds 3
 
 Write-Host "Starting Product Detail (React Remote) - Port 4002..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-product-detail; npm run build; npm run preview"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-product-detail; npm start"
 
 Start-Sleep -Seconds 3
 
 Write-Host "Starting Cart (Svelte Remote) - Port 4003..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-cart-svelte; npm run build; npm run preview"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-cart-svelte; npm run dev"
+
+Start-Sleep -Seconds 5
+
+Write-Host "Starting Shell (Host) - Port 4000..." -ForegroundColor Yellow
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd mf-shell; npm start"
 
 Write-Host "`nAll applications started!" -ForegroundColor Green
 Write-Host "Shell: http://localhost:4000" -ForegroundColor Cyan
