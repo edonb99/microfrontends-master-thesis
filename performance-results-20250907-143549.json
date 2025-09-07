@@ -1,0 +1,66 @@
+{
+  "Heterogeneous-ProductDetail": {
+    "BuildTime": 111.0239436,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.94
+  },
+  "Heterogeneous-ProductList": {
+    "BuildTime": 116.0549425,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.93
+  },
+  "Homogeneous-ProductList": {
+    "BuildTime": 116.2806745,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 1.97
+  },
+  "Homogeneous-Shell": {
+    "BuildTime": 118.2914868,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.01
+  },
+  "Homogeneous (Total)": {
+    "BuildTime": 456.5634127,
+    "JS_Gzip_MB": null,
+    "BundleSize": 8.09
+  },
+  "Heterogeneous-SvelteCart": {
+    "BuildTime": 39.9782772,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 0.05
+  },
+  "Monolith": {
+    "BuildTime": 7.1307373,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 1.81
+  },
+  "Homogeneous-Cart": {
+    "BuildTime": 110.8411239,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.05
+  },
+  "Heterogeneous-Shell": {
+    "BuildTime": 112.350806,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.01
+  },
+  "Homogeneous-ProductDetail": {
+    "BuildTime": 111.1501275,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "BundleSize": 2.06
+  },
+  "Heterogeneous (Total)": {
+    "BuildTime": 379.4079693,
+    "JS_Gzip_MB": null,
+    "BundleSize": 7.929999999999999
+  }
+}
