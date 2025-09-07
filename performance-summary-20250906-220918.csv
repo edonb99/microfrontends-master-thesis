@@ -1,0 +1,4 @@
+"Architecture","BuildTime_Seconds","BundleSize_MB","JS_Gzip_MB","Performance_Score","FCP_ms","LCP_ms","TTI_ms","TBT_ms","SpeedIndex_ms","INP_ms","CLS","TestRuns","TestTimestamp"
+"Heterogeneous","N/A","N/A","N/A","51","807","6198","6198","0","1108","0","0,9","3","20250906-220918"
+"Homogeneous","N/A","N/A","N/A","51","737","5185","5185","0","1125","0","0,9","3","20250906-220918"
+"Monolith","N/A","N/A","N/A","52","736","5788","5788","0","861","0","0,9","3","20250906-220918"
