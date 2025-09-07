@@ -1,0 +1,41 @@
+{
+  "Heterogeneous": {
+    "Lighthouse": {
+      "INPms": 0,
+      "LCPms": 6198,
+      "Runs": 3,
+      "TTIms": 6198,
+      "CLS": 0.9,
+      "Performance": 51,
+      "FCPms": 807,
+      "TBTms": 0,
+      "SpeedIndexms": 1108
+    }
+  },
+  "Homogeneous": {
+    "Lighthouse": {
+      "INPms": 0,
+      "LCPms": 5185,
+      "Runs": 3,
+      "TTIms": 5185,
+      "CLS": 0.9,
+      "Performance": 51,
+      "FCPms": 737,
+      "TBTms": 0,
+      "SpeedIndexms": 1125
+    }
+  },
+  "Monolith": {
+    "Lighthouse": {
+      "INPms": 0,
+      "LCPms": 5788,
+      "Runs": 3,
+      "TTIms": 5788,
+      "CLS": 0.9,
+      "Performance": 52,
+      "FCPms": 736,
+      "TBTms": 0,
+      "SpeedIndexms": 861
+    }
+  }
+}
