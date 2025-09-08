@@ -1,0 +1,140 @@
+{
+  "Homogeneous": {
+    "Production_Lighthouse": {
+      "INPms": 0,
+      "SpeedIndexms": 498,
+      "Performance": 62,
+      "LCPms": 2522,
+      "TTIms": 2522,
+      "TBTms": 0,
+      "CLS": 0.9,
+      "TestedURL": "http://localhost:3000",
+      "FCPms": 208,
+      "Runs": 3
+    }
+  },
+  "Homogeneous-ProductList": {
+    "Static_MB": 0.022,
+    "BundleSize_MB": 1.97,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.368,
+    "BuildTime": 161.96,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.008
+  },
+  "Heterogeneous-ProductDetail": {
+    "Static_MB": 0.022,
+    "BundleSize_MB": 2.94,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.572,
+    "BuildTime": 175.16,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.009
+  },
+  "Heterogeneous-Shell": {
+    "Static_MB": 0.021,
+    "BundleSize_MB": 2.01,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.376,
+    "BuildTime": 177.19,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.017
+  },
+  "Heterogeneous-SvelteCart": {
+    "BundleSize_MB": 0.05,
+    "BuildDir": "dist",
+    "JS_Raw_MB": 0.054,
+    "BuildTime": 46.98,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true
+  },
+  "Homogeneous-Total": {
+    "JS_Gzip_MB": 0.0,
+    "BuildTime": 693.02,
+    "BundleSize_MB": 8.09
+  },
+  "Heterogeneous-ProductList": {
+    "Static_MB": 0.022,
+    "BundleSize_MB": 2.93,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.567,
+    "BuildTime": 174.77,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.008
+  },
+  "Heterogeneous": {
+    "Production_Lighthouse": {
+      "INPms": 0,
+      "SpeedIndexms": 377,
+      "Performance": 66,
+      "LCPms": 2107,
+      "TTIms": 2107,
+      "TBTms": 0,
+      "CLS": 0.9,
+      "TestedURL": "http://localhost:4000",
+      "FCPms": 205,
+      "Runs": 3
+    }
+  },
+  "Homogeneous-ProductDetail": {
+    "Static_MB": 0.022,
+    "BundleSize_MB": 2.06,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.389,
+    "BuildTime": 174.6,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.009
+  },
+  "Homogeneous-Shell": {
+    "Static_MB": 0.021,
+    "BundleSize_MB": 2.01,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.377,
+    "BuildTime": 181.42,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.017
+  },
+  "Heterogeneous-Total": {
+    "JS_Gzip_MB": 0.0,
+    "BuildTime": 574.1,
+    "BundleSize_MB": 7.929999999999999
+  },
+  "Homogeneous-Cart": {
+    "Static_MB": 0.022,
+    "BundleSize_MB": 2.05,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.388,
+    "BuildTime": 175.04,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.009
+  },
+  "Monolith": {
+    "Production_Lighthouse": {
+      "INPms": 0,
+      "SpeedIndexms": 317,
+      "Performance": 63,
+      "LCPms": 2397,
+      "TTIms": 2397,
+      "TBTms": 0,
+      "CLS": 0.9,
+      "TestedURL": "http://localhost:5000",
+      "FCPms": 208,
+      "Runs": 3
+    },
+    "Static_MB": 0.02,
+    "BundleSize_MB": 1.81,
+    "BuildDir": "build",
+    "JS_Raw_MB": 0.258,
+    "BuildTime": 218.1,
+    "JS_Gzip_MB": 0.0,
+    "BuildExists": true,
+    "CSS_MB": 0.016
+  }
+}
