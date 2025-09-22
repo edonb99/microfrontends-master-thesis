@@ -9,7 +9,6 @@ param(
   [int]$Runs = 3
 )
 
-# === Helpers ===
 try { Add-Type -AssemblyName 'System.IO.Compression' } catch {}
 
 function Get-GzipSizeMB {
