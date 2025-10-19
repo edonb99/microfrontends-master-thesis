@@ -1,6 +1,6 @@
-# Microfrontends Master Thesis · Teza e Masterit për Mikrofrontendët
+# Microfrontends master thesis · Teza e masterit për mikrofrontendët
 
-**Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures**  
+**Analysis of the performance and modularity of heterogeneous microfrontends compared to homogeneous and monolithic architectures**  
 **Analiza e performancës dhe modularitetit të mikrofrontendëve heterogjenë krahasuar me arkitektura homogjene dhe monolitike**
 
 ---
