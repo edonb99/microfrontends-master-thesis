@@ -61,7 +61,7 @@ Rezultatet kryesore lidhen me **performancën web**, **modularitetin**, dhe **p�
 cd monolith
 npm install
 npm start
-# Dev server afishon portin (zakonisht 3000 ose i radhës nëse 3000 është i zënë)
+# Dev server afishon portin 5000
 ```
 
 ### **2. MF Homogjen (Dev, porte tipike 3000–3003)**
@@ -385,7 +385,7 @@ Primary outcomes concern **web performance**, **modularity**, and **developer ex
 ```bash
 cd monolith
 npm install
-npm start  # Dev server prints port (typically 3000)
+npm start  # Dev server prints port 5000
 ```
 
 **Homogeneous MF (Dev, ports 3000–3003):**
