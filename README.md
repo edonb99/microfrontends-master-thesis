@@ -1,635 +1,519 @@
-# Microfrontends Master Thesis / Teza e Masterit për Mikrofrontendët
+# Microfrontends Master Thesis · Teza e Masterit për Mikrofrontendët
 
+**Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures**  
 **Analiza e performancës dhe modularitetit të mikrofrontendëve heterogjenë krahasuar me arkitektura homogjene dhe monolitike**
 
-_Performance and modularity analysis of heterogeneous microfrontends compared to homogeneous and monolithic architectures_
+---
+
+## Përmbledhje 
+
+Ky repository përmban një studim të kontrolluar ku i njëjti SPA implementohet në tre stile arkitekturore për të mundësuar krahasim të drejtë dhe të riprodhues:
+
+1. **Monolitike** (React)
+2. **Micro-frontends Homogjen** (React + Webpack Module Federation)
+3. **Micro-frontends Heterogjen** (React + Svelte, përmes Module Federation)
+
+Rezultatet kryesore lidhen me **performancën web**, **modularitetin**, dhe **përvojën e zhvilluesit (DX)** nën procedura të standardizuara matjeje.
 
 ---
 
-## 📚 Project Overview / Përmbledhje e Projektit
+## Metodologjia (Përmbledhje)
 
-### Albanian / Shqip
+- **Variabla e pavarur:** Stili arkitekturor. Domeni, UI dhe logjika mbahen **identike** në të tre prototipet.
+- **Ekzekutime të shumta:** 3 ekzekutime për skenar; raportohet **mediana**.
+- **Metrikat kryesore:**
+  - **Performance Score** (0-100)
+  - **FCP** (First Contentful Paint)
+  - **LCP** (Largest Contentful Paint)
+  - **TTI** (Time to Interactive)
+  - **TBT** (Total Blocking Time)
+  - **Speed Index**
+  - **CLS** (Cumulative Layout Shift)
+  - **INP** (Interaction to Next Paint)
+  - Plus **build time** dhe **bundle size**
 
-Ky projekt është një studim i plotë i arkitekturave të ndryshme të zhvillimit të aplikacioneve web, duke analizuar tre qasje kryesore:
+### Mjedisi i testimit 
 
-1. **Arkitektura Monolitike** - Aplikacion i vetëm i integruar
-2. **Mikrofrontendë Homogjene** - Mikrofrontendë të gjitha me React
-3. **Mikrofrontendë Heterogjenë** - Mikrofrontendë me teknologji të përziera (React + Svelte)
+- **OS:** Windows 11
+- **Node.js:** 20.19.2
+- **npm:** 10.8.2
+- **Chrome:** 140
+- **React:** 19.1.0
+- **Svelte:** 3.59.1
+- **Webpack:** 5.89.0
+- **Tailwind CSS:** 3.4.1
 
-Projekti implementon një platformë e-commerce për të demonstruar dallimet në performancë, modularitet dhe kompleksitet të zhvillimit.
-
-### English
-
-This project is a comprehensive study of different web application development architectures, analyzing three main approaches:
-
-1. **Monolithic Architecture** - Single integrated application
-2. **Homogeneous Microfrontends** - All microfrontends using React
-3. **Heterogeneous Microfrontends** - Mixed technology microfrontends (React + Svelte)
-
-The project implements an e-commerce platform to demonstrate differences in performance, modularity, and development complexity.
-
----
-
-## 🏗️ Project Structure / Struktura e Projektit
-
-```
-microfrontends-master-thesis/
-├── monolith/                          # Arkitektura Monolitike
-├── mf-homogeneous/                    # Mikrofrontendë Homogjene
-├── mf-heterogeneous/                  # Mikrofrontendë Heterogjenë
-├── HETEROGENEOUS_ARCHITECTURE.md      # Dokumentimi i arkitekturës heterogjenë
-├── HETEROGENEOUS_IMPLEMENTATION_SUMMARY.md
-└── README.md
-```
+> ** Shënim metodologjik:** CLS më i lartë rrjedh nga imazhe pa dimensione të fiksuara dhe mungesë skeleton-loaders; INP/TBT mund të jenë 0 në skenarë pa ndërveprim të përdoruesit.
 
 ---
 
-## 🎯 1. Monolithic Architecture / Arkitektura Monolitike
+## Ekzekutimi (Getting Started)
 
-### Albanian / Shqip
+### **Kërkesa minimale**
 
-**Lokacioni:** `./monolith/`
+- **Node.js** ≥ 18 (rekomandohet 20)
+- **npm** ≥ 8 (rekomandohet 10)
+- **Chrome** (për Lighthouse testing)
 
-Aplikacioni monolitik është implementuar si një aplikacion i vetëm React që përmban të gjitha funksionalitetet:
-
-**Struktura:**
-
-- `src/components/` - Komponentët kryesorë (ProductList, ProductDetail, Cart)
-- `src/pages/` - Faqet e aplikacionit
-- `src/utils/` - Utilitetat (cart management)
-- `public/` - Resurset statike
-
-**Karakteristikat:**
-
-- ✅ Zhvillim i thjeshtë dhe i shpejtë
-- ✅ Debugim më i lehtë
-- ✅ Deployment i vetëm
-- ❌ Skalabilitet i kufizuar
-- ❌ Teknologji të kufizuara në një framework
-
-### English
-
-**Location:** `./monolith/`
-
-The monolithic application is implemented as a single React application containing all functionalities:
-
-**Structure:**
-
-- `src/components/` - Core components (ProductList, ProductDetail, Cart)
-- `src/pages/` - Application pages
-- `src/utils/` - Utilities (cart management)
-- `public/` - Static resources
-
-**Characteristics:**
-
-- ✅ Simple and fast development
-- ✅ Easier debugging
-- ✅ Single deployment
-- ❌ Limited scalability
-- ❌ Technology locked to one framework
-
----
-
-## 🏠 2. Homogeneous Microfrontends / Mikrofrontendë Homogjene
-
-### Albanian / Shqip
-
-**Lokacioni:** `./mf-homogeneous/`
-
-Arkitektura homogjene përdor Module Federation për të ndarë aplikacionin në mikrofrontendë të veçanta, të gjitha të implementuara në React.
-
-### English
-
-**Location:** `./mf-homogeneous/`
-
-The homogeneous architecture uses Module Federation to split the application into separate microfrontends, all implemented in React.
-
-### 📁 Detailed Structure / Struktura e Detajuar
-
-#### 🚀 Shell Application / Aplikacioni Kryesor
-
-**Path:** `./mf-homogeneous/mf-shell/`
-
-```
-mf-shell/
-├── src/
-│   ├── App.js                 # Main application with navigation
-│   ├── bootstrap.js           # Module Federation bootstrap
-│   └── index.js              # Entry point
-├── webpack.config.js          # Module Federation configuration
-├── package.json
-└── public/
-```
-
-**Albanian:** Shell aplikacioni që orkestroj të gjithë mikrofrontendët. Përmban navigimin kryesor, branding-un e universitetit UP FIEK, dhe menaxhon gjendjen globale të cart-it.
-
-**English:** Shell application that orchestrates all microfrontends. Contains main navigation, UP FIEK university branding, and manages global cart state.
-
-#### 📦 Product List Microfrontend
-
-**Path:** `./mf-homogeneous/mf-product-list/`
-
-```
-mf-product-list/
-├── src/
-│   ├── ProductList.jsx        # Main product listing component
-│   ├── utils/cart.js         # Cart utility functions
-│   ├── bootstrap.js
-│   └── index.js
-├── webpack.config.js          # Exposes ProductList component
-└── package.json
-```
-
-**Features / Karakteristikat:**
-
-- ✅ FakeStore API integration
-- ✅ Modern card design with hover effects
-- ✅ Real-time cart updates
-- ✅ Responsive grid layout
-- ✅ Star ratings display
-
-#### 🔍 Product Detail Microfrontend
-
-**Path:** `./mf-homogeneous/mf-product-detail/`
-
-```
-mf-product-detail/
-├── src/
-│   ├── ProductDetail.jsx      # Detailed product view
-│   ├── utils/cart.js         # Cart utilities
-│   ├── bootstrap.js
-│   └── index.js
-├── webpack.config.js          # Exposes ProductDetail component
-└── package.json
-```
-
-**Features / Karakteristikat:**
-
-- ✅ Individual product API fetching
-- ✅ Enhanced product information display
-- ✅ Interactive quantity controls
-- ✅ Back navigation
-- ✅ Loading and error states
-
-#### 🛒 Cart Microfrontend
-
-**Path:** `./mf-homogeneous/mf-cart/`
-
-```
-mf-cart/
-├── src/
-│   ├── Cart.jsx              # Shopping cart component
-│   ├── utils/cart.js        # Shared cart logic
-│   ├── bootstrap.js
-│   └── index.js
-├── webpack.config.js         # Exposes Cart component
-└── package.json
-```
-
-**Features / Karakteristikat:**
-
-- ✅ Professional cart interface
-- ✅ Quantity management
-- ✅ Clear cart functionality
-- ✅ Checkout preparation
-- ✅ Empty state handling
-
----
-
-## 🌈 3. Heterogeneous Microfrontends / Mikrofrontendë Heterogjenë
-
-### Albanian / Shqip
-
-**Lokacioni:** `./mf-heterogeneous/`
-
-Arkitektura më komplekse që kombinon teknologji të ndryshme - React për shell dhe shumicën e komponentëve, dhe Svelte për cart mikrofrontendin.
-
-### English
-
-**Location:** `./mf-heterogeneous/`
-
-The most complex architecture combining different technologies - React for shell and most components, and Svelte for the cart microfrontend.
-
-### 📁 Detailed Structure / Struktura e Detajuar
-
-#### 🚀 React Shell Application
-
-**Path:** `./mf-heterogeneous/mf-shell/`
-
-**Albanian:** Shell aplikacioni React që menaxhon integrimin mes teknologjive të ndryshme. Përmban wrapper komponent për Svelte cart-in.
-
-**English:** React shell application managing integration between different technologies. Contains wrapper component for the Svelte cart.
-
-```javascript
-// Svelte Cart Wrapper - Integration Challenge Solution
-const SvelteCartWrapper = () => {
-  const containerRef = React.useRef(null);
-  const svelteInstance = React.useRef(null);
-
-  React.useEffect(() => {
-    const loadSvelteCart = async () => {
-      try {
-        const { default: SvelteCart } = await import("cart/Cart");
-        if (containerRef.current && !svelteInstance.current) {
-          svelteInstance.current = new SvelteCart({
-            target: containerRef.current,
-          });
-        }
-      } catch (error) {
-        console.error("Failed to load Svelte cart:", error);
-      }
-    };
-    loadSvelteCart();
-    return () => {
-      if (svelteInstance.current) {
-        svelteInstance.current.$destroy();
-        svelteInstance.current = null;
-      }
-    };
-  }, []);
-
-  return React.createElement("div", {
-    ref: containerRef,
-    className: "svelte-cart-container",
-  });
-};
-```
-
-#### 📦 React Product Microfrontends
-
-**Paths:**
-
-- `./mf-heterogeneous/mf-product-list/`
-- `./mf-heterogeneous/mf-product-detail/`
-
-Same structure and functionality as homogeneous version, but configured to work with mixed architecture.
-
-#### 🛒 Svelte Cart Microfrontend - The Challenge
-
-**Path:** `./mf-heterogeneous/mf-cart-svelte/`
-
-```
-mf-cart-svelte/
-├── src/
-│   ├── Cart.svelte           # Main Svelte component
-│   ├── utils/cart.js        # Shared cart utilities
-│   ├── bootstrap.js         # Module Federation bootstrap
-│   ├── main.js             # Svelte entry point
-│   └── CartExport.js       # Export wrapper for Module Federation
-├── webpack.config.js        # Complex Svelte + Module Federation config
-├── svelte.config.js        # Svelte configuration
-├── package.json
-└── public/
-```
-
-### 🔥 The Svelte Integration Challenge / Sfida e Integrimit të Svelte
-
-#### Albanian / Shqip
-
-**Problemet e hasura:**
-
-1. **Module Federation me Svelte:** Module Federation është krijuar kryesisht për React. Integrimi i Svelte kërkoi konfiguracion të veçantë të webpack-it.
-
-2. **Vite vs Webpack Konflikti:** Svelte punon më mirë me Vite, por Module Federation kërkonte webpack. Zgjidhja ishte përdorimi i webpack-it me konfiguracion të personalizuar.
-
-3. **Component Lifecycle Management:** Svelte komponentët kanë lifecycle të ndryshëm nga React. Duhej krijuar wrapper që menaxhon mount/unmount në mënyrë korrekte.
-
-4. **Bundle Size Optimization:** Svelte compiler-i krijon bundles të vogla, por Module Federation shtonte overhead shtesë.
-
-#### English
-
-**Challenges encountered:**
-
-1. **Module Federation with Svelte:** Module Federation was primarily designed for React. Integrating Svelte required special webpack configuration.
-
-2. **Vite vs Webpack Conflict:** Svelte works better with Vite, but Module Federation required webpack. Solution was using webpack with custom configuration.
-
-3. **Component Lifecycle Management:** Svelte components have different lifecycle than React. Had to create wrapper that manages mount/unmount correctly.
-
-4. **Bundle Size Optimization:** Svelte compiler creates small bundles, but Module Federation added additional overhead.
-
-### 🔧 Technical Solutions / Zgjidhjet Teknike
-
-#### Webpack Configuration for Svelte
-
-```javascript
-// webpack.config.js - Key configurations
-module.exports = {
-  mode: "development",
-  resolve: {
-    alias: {
-      svelte: path.dirname(require.resolve("svelte/package.json")),
-    },
-    extensions: [".mjs", ".js", ".svelte"],
-    mainFields: ["svelte", "browser", "module", "main"],
-    conditionNames: ["svelte", "browser", "import"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.svelte$/,
-        use: {
-          loader: "svelte-loader",
-          options: {
-            compilerOptions: {
-              dev: true,
-            },
-            emitCss: false,
-          },
-        },
-      },
-    ],
-  },
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "cart",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./Cart": "./src/CartExport.js",
-      },
-      shared: {
-        // Minimal sharing to avoid conflicts
-      },
-    }),
-  ],
-};
-```
-
-#### CartExport.js - Bridge Component
-
-```javascript
-import Cart from "./Cart.svelte";
-
-// Export Svelte component in Module Federation compatible way
-export default Cart;
-```
-
----
-
-## 🎨 Design System & University Branding
-
-### Albanian / Shqip
-
-Të tre arkitekturat implementojnë një sistem dizajni të unifikuar me:
-
-**Branding i Universitetit:**
-
-- Logo dhe ngjyrat e UP (Universiteti i Prishtinës)
-- Informata të FIEK (Fakulteti i Inxhinierisë Elektrike dhe Kompjuterike)
-- Footer profesional me detaje të projektit
-
-**Sistem Dizajni Modern (2025):**
-
-- Dizajn minimalist me TailwindCSS
-- Ngjyra të përbashkëta: Blue-700 primary, gray scale
-- Komponenta responsive
-- Micro-interactions dhe hover effects
-- Accessibility të përmirësuar
-
-### English
-
-All three architectures implement a unified design system with:
-
-**University Branding:**
-
-- UP (University of Prishtina) logo and colors
-- FIEK (Faculty of Electrical and Computer Engineering) information
-- Professional footer with project details
-
-**Modern Design System (2025):**
-
-- Minimalist design with TailwindCSS
-- Consistent colors: Blue-700 primary, gray scale
-- Responsive components
-- Micro-interactions and hover effects
-- Improved accessibility
-
----
-
-## 📊 Performance Comparison Framework / Korniza e Krahasimit të Performancës
-
-### Metrics to Analyze / Metrikat për Analizim
-
-#### 1. Load Performance / Performanca e Ngarkimit
-
-- **Initial Bundle Size** - Madhësia e bundle-it fillestar
-- **Time to First Contentful Paint (FCP)** - Koha deri në paint-in e parë
-- **Time to Interactive (TTI)** - Koha deri të bëhet interactive
-- **Largest Contentful Paint (LCP)** - Paint-i më i madh i përmbajtjes
-
-#### 2. Runtime Performance / Performanca në Runtime
-
-- **JavaScript execution time** - Koha e ekzekutimit të JavaScript-it
-- **Memory usage** - Përdorimi i memories
-- **Network requests efficiency** - Efikasiteti i kërkesave të rrjetit
-- **Cache utilization** - Përdorimi i cache-it
-
-#### 3. Developer Experience / Përvoja e Zhvilluesit
-
-- **Build time** - Koha e ndërtimit
-- **Development server startup** - Nisja e serverit të zhvillimit
-- **Hot reload performance** - Performanca e hot reload-it
-- **Bundle analysis** - Analiza e bundle-it
-
-#### 4. Modularity & Maintainability / Modulariteti dhe Mirëmbajtja
-
-- **Code splitting effectiveness** - Efikasiteti i ndarjes së kodit
-- **Independent deployability** - Deployment-i i pavarur
-- **Technology flexibility** - Fleksibiliteti teknologjik
-- **Team scalability** - Skalabiliteti i ekipit
-
----
-
-## 🚀 Getting Started / Si të Filloni
-
-### Prerequisites / Parakushtet
-
-```bash
-Node.js >= 18
-npm >= 8
-```
-
-### Running Monolithic Application / Ekzekutimi i Aplikacionit Monolitik
+### **1. Monolit (Dev)**
 
 ```bash
 cd monolith
 npm install
 npm start
-# Hapet në http://localhost:3000
+# Dev server afishon portin (zakonisht 3000 ose i radhës nëse 3000 është i zënë)
 ```
 
-### Running Homogeneous Microfrontends / Ekzekutimi i Mikrofrontendëve Homogjene
+### **2. MF Homogjen (Dev, porte tipike 3000–3003)**
 
 ```bash
 cd mf-homogeneous
 
-# Windows
-start-all.bat
-
-# PowerShell
+# Windows (PowerShell)
 powershell -ExecutionPolicy Bypass -File start-all.ps1
 
 # Linux/Mac
-chmod +x start-all.sh
-./start-all.sh
+chmod +x start-all.sh && ./start-all.sh
+
+# Shell:3000 · ProductList:3001 · ProductDetail:3002 · Cart:3003
 ```
 
-**Ports / Portet:**
-
-- Shell: http://localhost:4000
-- Product List: http://localhost:4001
-- Product Detail: http://localhost:4002
-- Cart: http://localhost:4003
-
-### Running Heterogeneous Microfrontends / Ekzekutimi i Mikrofrontendëve Heterogjenë
+### **3. MF Heterogjen (Dev, porte tipike 4000–4003)**
 
 ```bash
 cd mf-heterogeneous
 
-# Windows
-start-all.bat
-
-# PowerShell
+# Windows (PowerShell)
 powershell -ExecutionPolicy Bypass -File start-all.ps1
 
 # Linux/Mac
-chmod +x start-all.sh
-./start-all.sh
+chmod +x start-all.sh && ./start-all.sh
+
+# Shell:4000 · ProductList:4001 · ProductDetail:4002 · Cart(Svelte):4003
 ```
 
-**Ports / Portet:**
-
-- Shell: http://localhost:4000
-- Product List: http://localhost:4001
-- Product Detail: http://localhost:4002
-- Svelte Cart: http://localhost:4003
+> ** Për ndërtim dhe testim në Prod, shih skriptet më poshtë.**
 
 ---
 
-## 🔧 Technical Stack / Stack-u Teknik
+## 🔬 Skriptet e Matjes
 
-### Shared Technologies / Teknologjitë e Përbashkëta
+### **Matje në Dev (Lighthouse + build/bundle në Dev)**
 
-- **API:** FakeStore API (https://fakestoreapi.com)
-- **Styling:** TailwindCSS 3.4.1
-- **State Management:** LocalStorage-based cart
-- **Build Tools:** Webpack 5 with Module Federation
-- **Package Manager:** npm
+```powershell
+# Test performance në development mode
+.\performance-compare.ps1 -LighthouseTest -Runs 3
 
-### Monolith Specific / Specifike për Monolitin
+# Build dhe analizo bundle sizes
+.\performance-compare.ps1 -BuildAll
 
-- **Framework:** React 19
-- **Routing:** React Router DOM
-- **Build:** Create React App (CRA)
+# Full workflow
+.\performance-compare.ps1 -BuildAll -LighthouseTest -Runs 3
 
-### Homogeneous Specific / Specifike për Homogjene
-
-- **Framework:** React 19 (all microfrontends)
-- **Module Federation:** Webpack 5 ModuleFederationPlugin
-- **Build:** Custom webpack configuration
-
-### Heterogeneous Specific / Specifike për Heterogjenë
-
-- **Shell & Remotes:** React 19
-- **Cart:** Svelte 3.59.1
-- **Integration:** Custom Svelte-React bridge
-- **Build:** Mixed webpack configurations
-
----
-
-## 📈 Expected Results / Rezultatet e Pritura
-
-### Performance Predictions / Parashikimet e Performancës
-
-#### 1. Bundle Size / Madhësia e Bundle-it
-
-```
-Monolith:     ~500KB (single bundle)
-Homogeneous:  ~300KB + ~200KB chunks
-Heterogeneous: ~250KB + ~180KB + ~50KB (Svelte cart)
+# Output: ./performance-results-YYYYMMDD-HHMMSS.json & .csv
 ```
 
-#### 2. Load Time / Koha e Ngarkimit
+### **Matje në Prod (build → serve → Lighthouse)**
 
-```
-Monolith:     Fastest initial, slower with growth
-Homogeneous:  Medium initial, better caching
-Heterogeneous: Slowest initial, best granular caching
+```powershell
+# Full production testing workflow
+.\production-compare.ps1 -BuildAll -StartServers -TestPerformance -Runs 3
+
+# Output: ./production-results-YYYYMMDD-HHMMSS.json & .csv
 ```
 
-#### 3. Development Experience / Përvoja e Zhvillimit
+**Komanda të veçanta:**
 
-```
-Monolith:     ⭐⭐⭐⭐⭐ (Simple)
-Homogeneous:  ⭐⭐⭐⭐ (Medium complexity)
-Heterogeneous: ⭐⭐⭐ (High complexity)
+```powershell
+# Vetëm build
+.\production-compare.ps1 -BuildAll
+
+# Start production servers
+.\production-compare.ps1 -StartServers
+
+# Test performance (servers duhet të jenë aktive)
+.\production-compare.ps1 -TestPerformance -Runs 3
+
+# Stop të gjitha servers
+.\production-compare.ps1 -StopServers
 ```
 
 ---
 
-## 🎓 Academic Context / Konteksti Akademik
+##  Rezultate (Përmbledhje)
 
-**Institution / Institucioni:** Universiteti i Prishtinës "Hasan Prishtina"  
-**Faculty / Fakulteti:** FIEK - Fakulteti i Inxhinierisë Elektrike dhe Kompjuterike  
-**Program / Programi:** Master në Inxhinieri Kompjuterike  
-**Year / Viti:** 2025
+### **Performanca – Dev (mediana e 3 ekzekutimeve)**
 
-**Thesis Objectives / Objektivat e Tezës:**
+| Metrika                 | Monolit | MF Homogjen | MF Heterogjen |
+| ----------------------- | ------- | ----------- | ------------- |
+| **Performance (0–100)** | 52      | 51          | 51            |
+| **FCP (ms)**            | 736     | 737         | 807           |
+| **LCP (ms)**            | 5788    | 5185        | 6198          |
+| **TTI (ms)**            | 5788    | 5185        | 6198          |
+| **Speed Index (ms)**    | 861     | 1125        | 1108          |
+| **TBT (ms)**            | 0       | 0           | 0             |
+| **CLS**                 | 0.419   | 0.419       | 0.419         |
+| **INP (ms)**            | 0       | 0           | 0             |
 
-1. Analizimi i performancës së arkitekturave të ndryshme
-2. Vlerësimi i modularitetit dhe skalabilitetit
-3. Matja e kompleksitetit të zhvillimit
-4. Rekomandime për përdorim praktik
+### **Performanca – Prod (mediana e 3 ekzekutimeve)**
 
----
+| Metrika                 | Monolit | MF Homogjen | MF Heterogjen |
+| ----------------------- | ------- | ----------- | ------------- |
+| **Performance (0–100)** | 63      | 62          | 66            |
+| **FCP (ms)**            | 208     | 208         | 205           |
+| **LCP (ms)**            | 2397    | 2522        | 2107          |
+| **TTI (ms)**            | 2397    | 2522        | 2107          |
+| **Speed Index (ms)**    | 317     | 498         | 377           |
+| **TBT (ms)**            | 0       | 0           | 0             |
+| **CLS**                 | 0.419   | 0.419       | 0.419         |
+| **INP (ms)**            | 0       | 0           | 0             |
 
-## 🔍 Future Analysis / Analiza e Ardhshme
+### **Ndërtimi & Bundle (Dev)**
 
-### Performance Testing Tools / Mjetet e Testimit të Performancës
+| Arkitektura               | Build Time (s) | Bundle Size (MB) | JS Gzipped (MB) |
+| ------------------------- | -------------- | ---------------- | --------------- |
+| **Monolit**               | 7.13           | 1.81             | 0.512           |
+| **MF Homogjen (total)**   | 456.56         | 8.09             | 2.156           |
+| **MF Heterogjen (total)** | 379.41         | 7.93             | 2.089           |
 
-- **Lighthouse** - Web performance metrics
-- **WebPageTest** - Detailed loading analysis
-- **Bundle Analyzer** - Bundle size analysis
-- **Chrome DevTools** - Runtime performance
-- **k6** - Load testing
+### ** Vëzhgime kryesore**
 
-### Metrics Collection / Mbledhja e Metrikave
+✅ **Në Dev:**
 
-- Automated performance testing scripts
-- CI/CD integration for continuous monitoring
-- Real user monitoring (RUM) setup
-- Comparative analysis dashboards
+- MF homogjen rezulton më mirë në LCP/TTI
+- Monoliti ruan avantazh në Speed Index
+- Të tre arkitekturat kanë CLS të njëjtë (0.419)
 
----
+✅ **Në Prod:**
 
-## 📚 References / Referencat
+- **MF heterogjen (React + Svelte) del fitues** në LCP/TTI dhe Performance Score
+- Optimizimet e production përmirësojnë të gjitha arkitekturat ndjeshëm
+- FCP është pothuajse identik (205-208ms)
 
-1. **Module Federation Documentation** - Webpack 5 Module Federation
-2. **Micro Frontends Pattern** - Martin Fowler's architecture patterns
-3. **Svelte Documentation** - Official Svelte framework docs
-4. **React Documentation** - Official React framework docs
-5. **TailwindCSS Documentation** - Utility-first CSS framework
-6. **Web Performance APIs** - Browser performance measurement APIs
+⚠️ **Kostot e Modularitetit:**
 
----
-
-## 🤝 Contributing / Kontributi
-
-This project is part of a master's thesis research. For questions or contributions, please contact the author through the university.
-
-Ky projekt është pjesë e një hulumtimi për tezën e masterit. Për pyetje apo kontribute, ju lutemi kontaktoni autorin përmes universitetit.
-
----
-
-## 📄 License / Licenca
-
-This project is created for academic purposes as part of a master's thesis at the University of Prishtina.
-
-Ky projekt është krijuar për qëllime akademike si pjesë e tezës së masterit në Universitetin e Prishtinës.
+- MF-të rrisin kohën totale të ndërtimit (7s → 456s për homogjen, 379s për heterogjen)
+- Madhësia kumulative e bundle-eve rritet për shkak të orkestrimit dhe varësive të ndara
+- Cart (Svelte) mbetet minimal në madhësi (më i vogël se Cart React)
 
 ---
 
-**Author / Autori:** Edon Budakova
-**Supervisor / Mentori:** Dhurata Ahmetaj
-**University / Universiteti:** Universiteti i Prishtinës "Hasan Prishtina" - FIEK  
-**Year / Viti:** 2025
+##  Variantet Arkitekturore (Pikat Kryesore)
+
+### **1. Monolit (React)**
+
+✅ **Avantazhet:**
+
+- Thjeshtësi dhe konfigurim i centralizuar
+- Build time më i shpejtë (7.13s)
+- Bundle size më i vogël (1.81 MB)
+- I përshtatshëm për sisteme të vogla/mesme
+
+❌ **Disavantazhet:**
+
+- Modularitet i kufizuar
+- Vështirësi në skalim të ekipeve
+- Rivendosje e plotë për çdo ndryshim
+
+### **2. MF Homogjen (React + Module Federation)**
+
+✅ **Avantazhet:**
+
+- Ndarje e qartë e përgjegjësive
+- Shared dependencies (React, React-DOM)
+- Ekuilibër modularitet/mirëmbajtje
+- Zhvillim i pavarur i komponentëve
+
+❌ **Disavantazhet:**
+
+- Build time i lartë (456.56s total)
+- Kompleksitet i shtuar në konfigurimin
+- Bundle size më i madh (8.09 MB total)
+
+### **3. MF Heterogjen (React + Svelte)**
+
+✅ **Avantazhet:**
+
+- Fleksibilitet teknologjik maksimal
+- Svelte Cart më i vogël dhe më i shpejtë
+- Performance më i mirë në production (66/100)
+- Mundësi për optimizime framework-specifike
+
+❌ **Disavantazhet:**
+
+- Kërkon menaxhim të kujdesshëm të varësive
+- Kompleksitet i shtuar në konfigurimin (React↔Svelte wrapper)
+- Build time i lartë (379.41s total)
+- Nevoja për ekspertizë në dy framework-e
+
+---
+
+##  Riprodhueshmëri & Kufizime
+
+### **Për Riprodhueshmëri të Plotë:**
+
+1. Përdorni të njëjtat versione të Node/npm/Chrome për të minimizuar devijimet
+2. Ekzekutoni të paktën 3 teste dhe raportoni medianen
+3. Mbyllni të gjitha aplikacionet e tjera për të shmangur ndërhyrjet
+4. Përdorni të njëjtin hardware/OS për krahasime të drejta
+
+### **Kufizime dhe Përmirësime të Mundshme:**
+
+- ⚠️ **CLS i lartë (0.419):** Mund të përmirësohet me:
+  - Dimensione fikse për imazhet
+  - Skeleton loaders për përmbajtje dinamike
+  - Optimizim i layout-it
+- ⚠️ **INP/TBT = 0:** Scenarios aktualisht nuk përfshijnë ndërveprime komplekse
+
+  - Shtoni rrjedha interaktive (p.sh., "Add to Cart" me animacione)
+  - Implementoni filtra dhe sortim dinamik
+  - Testoni me heavy JavaScript operations
+
+-  **Skenarë shtesë për testuar:**
+  - Mobile performance
+  - Network throttling (3G/4G)
+  - Multiple concurrent users
+  - Different browser engines (Firefox, Safari)
+
+---
+
+## 📁 Struktura e Repository-s
+
+```
+microfrontends-master-thesis/
+├── monolith/                          # Monolithic React app
+│   ├── src/
+│   ├── package.json
+│   └── start-all.ps1
+│
+├── mf-homogeneous/                    # Homogeneous MF (all React)
+│   ├── mf-shell/                      # Shell app (port 3000)
+│   ├── mf-product-list/               # Remote (port 3001)
+│   ├── mf-product-detail/             # Remote (port 3002)
+│   ├── mf-cart/                       # Remote (port 3003)
+│   └── start-all.ps1
+│
+├── mf-heterogeneous/                  # Heterogeneous MF (React + Svelte)
+│   ├── mf-shell/                      # Shell app (port 4000)
+│   ├── mf-product-list/               # Remote React (port 4001)
+│   ├── mf-product-detail/             # Remote React (port 4002)
+│   ├── mf-cart-svelte/                # Remote Svelte (port 4003)
+│   └── start-all.ps1
+│
+├── performance-compare.ps1            # Development testing script
+├── production-compare.ps1             # Production testing script
+├── README.md                          # This file
+├── HETEROGENEOUS_ARCHITECTURE.md      # Detailed architecture docs
+├── TESTING-GUIDE.md                   # Comprehensive testing guide
+└── results/                           # Generated test results
+    ├── performance-results-*.json
+    ├── performance-summary-*.csv
+    ├── production-results-*.json
+    └── production-summary-*.csv
+```
+
+---
+
+## 📄 Licenca dhe përdorimi
+
+Ky kod dhe rezultatet publikohen për **qëllime akademike** (tezë Master, UP "Hasan Prishtina", FIEK).  
+Lejohet riprodhimi me referencë të autorit dhe citim të repository-s dhe tezës.
+
+### **Citimi (Recommended):**
+
+```bibtex
+@mastersthesis{edonbudakova2025microfrontends,
+  author  = {Budakova, Edon},
+  title   = {Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures},
+  school  = {University of Prishtina – Faculty of Electrical and Computer Engineering},
+  year    = {2025},
+  type    = {Master's thesis},
+  url     = {https://github.com/edonb99/microfrontends-master-thesis}
+}
+```
+
+---
+
+##  Autori & Mentor
+
+**Autor:** Edon Budakova  
+**Mentore:** Prof. Ass. Dr. Dhuratë Hyseni  
+**Institucioni:** Universiteti i Prishtinës "Hasan Prishtina" – FIEK  
+**Viti:** 2025
+
+**Kontakt:**
+
+- GitHub: [@edonb99](https://github.com/edonb99)
+- Repository: [microfrontends-master-thesis](https://github.com/edonb99/microfrontends-master-thesis)
+
+---
+
+##  Overview (English)
+
+This repository contains a controlled case study where the same Single Page Application (SPA) is implemented in three architectural styles to enable a fair and reproducible comparison:
+
+1. **Monolithic** (React)
+2. **Homogeneous micro-frontends** (React + Webpack Module Federation)
+3. **Heterogeneous micro-frontends** (React + Svelte, via Module Federation)
+
+Primary outcomes concern **web performance**, **modularity**, and **developer experience (DX)** under standardized measurement procedures.
+
+---
+
+##  Method (High-Level)
+
+- **Independent variable:** Architecture style
+- **Controlled variables:** Domain, UI, and logic remain identical across all three implementations
+- **Measurement protocol:** Three runs per scenario; report **median** values
+- **Core metrics:** FCP, LCP, TTI, TBT, Speed Index, CLS, INP, plus build time and bundle size
+- **Testbed:** Windows 11, Node 20.19.2, npm 10.8.2, Chrome 140, React 19.1.0, Svelte 3.59.1, Webpack 5.89.0, Tailwind 3.4.1
+
+---
+
+##  Running & Reproducing
+
+### **Prerequisites**
+
+- Node.js ≥ 18 (recommended 20)
+- npm ≥ 8 (recommended 10)
+- Chrome (for Lighthouse testing)
+
+### **Quick Start**
+
+**Monolith (Dev):**
+
+```bash
+cd monolith
+npm install
+npm start  # Dev server prints port (typically 3000)
+```
+
+**Homogeneous MF (Dev, ports 3000–3003):**
+
+```bash
+cd mf-homogeneous
+powershell -ExecutionPolicy Bypass -File start-all.ps1  # Windows
+# OR
+chmod +x start-all.sh && ./start-all.sh  # Linux/Mac
+
+# Shell:3000 · ProductList:3001 · ProductDetail:3002 · Cart:3003
+```
+
+**Heterogeneous MF (Dev, ports 4000–4003):**
+
+```bash
+cd mf-heterogeneous
+powershell -ExecutionPolicy Bypass -File start-all.ps1  # Windows
+# OR
+chmod +x start-all.sh && ./start-all.sh  # Linux/Mac
+
+# Shell:4000 · ProductList:4001 · ProductDetail:4002 · Cart(Svelte):4003
+```
+
+### **Performance Testing**
+
+**Development Testing:**
+
+```powershell
+.\performance-compare.ps1 -LighthouseTest -Runs 3
+.\performance-compare.ps1 -BuildAll
+```
+
+**Production Testing:**
+
+```powershell
+.\production-compare.ps1 -BuildAll -StartServers -TestPerformance -Runs 3
+```
+
+Scripts write results under `performance-results-*.json/csv` and `production-results-*.json/csv`.
+
+---
+
+##  Key Findings (Concise)
+
+### **Development Mode:**
+
+- **Homogeneous MFs** outperform in LCP/TTI
+- **Monolith** leads in Speed Index
+- All architectures have identical CLS (0.419)
+
+### **Production Mode:**
+
+- **Heterogeneous MFs (React+Svelte)** lead in LCP/TTI and overall Performance score (66/100)
+- Monolith still strong on Speed Index (317ms)
+- Production optimizations significantly improve all architectures
+
+### **Build & Bundle:**
+
+- MF variants increase total build time (7s → 379-456s)
+- Cumulative bundle size grows due to orchestration and shared/duplicated dependencies
+- Svelte Cart remains minimal in size (smaller than React Cart)
+
+---
+
+##  Conclusion
+
+This study demonstrates that:
+
+1. **Monolithic architecture** remains optimal for small-to-medium projects prioritizing simplicity and fast build times
+2. **Homogeneous micro-frontends** provide a balanced approach with good modularity and shared dependencies
+3. **Heterogeneous micro-frontends** offer maximum flexibility and best production performance, at the cost of increased complexity
+
+The choice depends on project scale, team structure, and long-term maintainability requirements.
+
+---
+
+## 📄 License & Citation
+
+This work is published for **academic purposes** as part of a Master's thesis (University of Prishtina – FIEK, 2025).
+
+When reusing code or results, please cite:
+
+```bibtex
+@mastersthesis{budakova2025microfrontends,
+  author  = {Budakova, Edon},
+  title   = {Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures},
+  school  = {University of Prishtina – Faculty of Electrical and Computer Engineering},
+  year    = {2025},
+  type    = {Master's thesis},
+  url     = {https://github.com/edonb99/microfrontends-master-thesis}
+}
+```
+
+---
+
+##  Contributing
+
+This is an academic research project. If you find issues or have suggestions for improvements:
+
+1. Open an issue describing the problem or enhancement
+2. Fork the repository and create a pull request
+3. Ensure all tests pass and results are reproducible
+
+---
+
+## 📞 Contact
+
+**Author:** Edon Budakova  
+**Supervisor:** Prof. Ass. Dr. Dhuratë Hyseni  
+**Institution:** University of Prishtina "Hasan Prishtina" – FIEK  
+**Year:** 2025
+
+**Links:**
+
+- 🐙 GitHub: [@edonb99](https://github.com/edonb99)
+- 📦 Repository: [microfrontends-master-thesis](https://github.com/edonb99/microfrontends-master-thesis)
+
+---
+
+##  Acknowledgments
+
+Special thanks to:
+
+- Prof. Ass. Dr. Dhuratë Hyseni for supervision and guidance
+- University of Prishtina – FIEK for academic support
+- Open-source communities (React, Svelte, Webpack) for excellent tools and documentation
+
+---
+
+** If this research helps your work, please consider citing it and starring the repository!**
