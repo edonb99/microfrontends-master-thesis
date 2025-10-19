@@ -10,8 +10,8 @@
 Ky repository përmban një studim të kontrolluar ku i njëjti SPA implementohet në tre stile arkitekturore për të mundësuar krahasim të drejtë dhe të riprodhues:
 
 1. **Monolitike** (React)
-2. **Micro-frontends Homogjen** (React + Webpack Module Federation)
-3. **Micro-frontends Heterogjen** (React + Svelte, përmes Module Federation)
+2. **Microfrontends Homogjen** (React + Webpack Module Federation)
+3. **Microfrontends Heterogjen** (React + Svelte, përmes Module Federation)
 
 Rezultatet kryesore lidhen me **performancën web**, **modularitetin**, dhe **përvojën e zhvilluesit (DX)** nën procedura të standardizuara matjeje.
 
@@ -96,7 +96,7 @@ chmod +x start-all.sh && ./start-all.sh
 
 ---
 
-## 🔬 Skriptet e Matjes
+## Skriptet e matjes
 
 ### **Matje në Dev (Lighthouse + build/bundle në Dev)**
 
@@ -324,7 +324,7 @@ Lejohet riprodhimi me referencë të autorit dhe citim të repository-s dhe tez�
 ```bibtex
 @mastersthesis{edonbudakova2025microfrontends,
   author  = {Budakova, Edon},
-  title   = {Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures},
+  title   = {Analysis of the performance and modularity of heterogeneous microfrontends compared to homogeneous and monolithic architectures},
   school  = {University of Prishtina – Faculty of Electrical and Computer Engineering},
   year    = {2025},
   type    = {Master's thesis},
@@ -353,8 +353,8 @@ Lejohet riprodhimi me referencë të autorit dhe citim të repository-s dhe tez�
 This repository contains a controlled case study where the same Single Page Application (SPA) is implemented in three architectural styles to enable a fair and reproducible comparison:
 
 1. **Monolithic** (React)
-2. **Homogeneous micro-frontends** (React + Webpack Module Federation)
-3. **Heterogeneous micro-frontends** (React + Svelte, via Module Federation)
+2. **Homogeneous microfrontends** (React + Webpack Module Federation)
+3. **Heterogeneous microfrontends** (React + Svelte, via Module Federation)
 
 Primary outcomes concern **web performance**, **modularity**, and **developer experience (DX)** under standardized measurement procedures.
 
@@ -456,8 +456,8 @@ Scripts write results under `performance-results-*.json/csv` and `production-res
 This study demonstrates that:
 
 1. **Monolithic architecture** remains optimal for small-to-medium projects prioritizing simplicity and fast build times
-2. **Homogeneous micro-frontends** provide a balanced approach with good modularity and shared dependencies
-3. **Heterogeneous micro-frontends** offer maximum flexibility and best production performance, at the cost of increased complexity
+2. **Homogeneous microfrontends** provide a balanced approach with good modularity and shared dependencies
+3. **Heterogeneous microfrontends** offer maximum flexibility and best production performance, at the cost of increased complexity
 
 The choice depends on project scale, team structure, and long-term maintainability requirements.
 
@@ -470,9 +470,9 @@ This work is published for **academic purposes** as part of a Master's thesis (U
 When reusing code or results, please cite:
 
 ```bibtex
-@mastersthesis{budakova2025microfrontends,
+@mastersthesis{edonbudakova2025microfrontends,
   author  = {Budakova, Edon},
-  title   = {Analysis of the performance and modularity of heterogeneous micro-frontends compared to homogeneous and monolithic architectures},
+  title   = {Analysis of the performance and modularity of heterogeneous microfrontends compared to homogeneous and monolithic architectures},
   school  = {University of Prishtina – Faculty of Electrical and Computer Engineering},
   year    = {2025},
   type    = {Master's thesis},
@@ -501,8 +501,8 @@ This is an academic research project. If you find issues or have suggestions for
 
 **Links:**
 
-- 🐙 GitHub: [@edonb99](https://github.com/edonb99)
-- 📦 Repository: [microfrontends-master-thesis](https://github.com/edonb99/microfrontends-master-thesis)
+-  GitHub: [@edonb99](https://github.com/edonb99)
+-  Repository: [microfrontends-master-thesis](https://github.com/edonb99/microfrontends-master-thesis)
 
 ---
 
